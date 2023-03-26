@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://scripts/salterio/canto.gd" type="Script" id=1]
+[ext_resource path="res://assets/Salterio/Salmos/133/1.tres" type="Resource" id=2]
+[ext_resource path="res://assets/Salterio/Salmos/133/gloria.tres" type="Resource" id=3]
+[ext_resource path="res://assets/Salterio/Salmos/133/2.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+nome = "Salmo 133(134): Oração da noite no templo"
+tipo = 0
+estrofes = [ ExtResource( 2 ), ExtResource( 4 ) ]
+refroes = [  ]
+gloria = ExtResource( 3 )

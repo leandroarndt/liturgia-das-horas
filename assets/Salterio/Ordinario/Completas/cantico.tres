@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://scripts/salterio/canto.gd" type="Script" id=1]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/gloria cantico.tres" type="Resource" id=2]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/estrofe cantico 1.tres" type="Resource" id=3]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/estrofe cantico 2.tres" type="Resource" id=4]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/estrofe cantico 3.tres" type="Resource" id=5]
+
+[resource]
+script = ExtResource( 1 )
+nome = "Cântico de Simeão: Cristo, luz das nações e glória de seu povo"
+tipo = 1
+estrofes = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
+refroes = [  ]
+gloria = ExtResource( 2 )

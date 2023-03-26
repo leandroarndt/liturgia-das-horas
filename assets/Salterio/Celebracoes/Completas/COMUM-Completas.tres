@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=9 format=2]
+
+[ext_resource path="res://scripts/salterio/salterio.gd" type="Script" id=1]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Domingo/oficio domingo.tres" type="Resource" id=2]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Sabado/oficio sabado.tres" type="Resource" id=3]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Segunda/oficio segunda.tres" type="Resource" id=4]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Terca/oficio terca.tres" type="Resource" id=5]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Quarta/oficio quarta.tres" type="Resource" id=6]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Quinta/oficio quinta.tres" type="Resource" id=7]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Sexta/oficio sexta.tres" type="Resource" id=8]
+
+[resource]
+script = ExtResource( 1 )
+tempo = 0
+tipo = 1
+semana = 0
+nome = "Saltério das Completas"
+celebracoes = [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ]

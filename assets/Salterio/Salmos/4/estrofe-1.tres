@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://scripts/salterio/estrofe.gd" type="Script" id=1]
+[ext_resource path="res://assets/Salterio/Salmos/4/1.png" type="Texture" id=2]
+[ext_resource path="res://assets/Salterio/Salmos/4/3.png" type="Texture" id=3]
+[ext_resource path="res://assets/Salterio/Salmos/4/2.png" type="Texture" id=4]
+
+[resource]
+script = ExtResource( 1 )
+versos = [ "1", "2", "3" ]
+imagens = [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ) ]
+tipo = 1
+nome = "1-3"

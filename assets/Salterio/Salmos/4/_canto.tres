@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scripts/salterio/canto_antigo.gd" type="Script" id=1]
+
+
+[resource]
+script = ExtResource( 1 )
+nome = "Salmo 4"
+estrofes = [ "1", "2", "3", "4", "5", "6", "7", "8" ]
+refroes = [  ]

@@ -1,0 +1,173 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/fontes/SourceSans3-Semibold.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/tema.tres" type="Theme" id=2]
+[ext_resource path="res://scripts/escolha/Tempo.gd" type="Script" id=3]
+[ext_resource path="res://scripts/Hora.gd" type="Script" id=4]
+[ext_resource path="res://scripts/Dia.gd" type="Script" id=5]
+[ext_resource path="res://scripts/Festa.gd" type="Script" id=6]
+[ext_resource path="res://scripts/Escolha.gd" type="Script" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 36
+font_data = ExtResource( 1 )
+
+[node name="Escolha" type="CanvasLayer"]
+layer = 2
+script = ExtResource( 7 )
+
+[node name="Fundo" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Margem" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 12.0
+margin_right = -12.0
+margin_bottom = -12.0
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="OrganizadorVertical" type="VBoxContainer" parent="Margem"]
+margin_right = 633.0
+margin_bottom = 846.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Título" type="Label" parent="Margem/OrganizadorVertical"]
+margin_right = 633.0
+margin_bottom = 2.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Escolher celebração"
+align = 1
+
+[node name="Grade" type="GridContainer" parent="Margem/OrganizadorVertical"]
+margin_top = 6.0
+margin_right = 633.0
+margin_bottom = 816.0
+size_flags_vertical = 3
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EtiquetaHora" type="Label" parent="Margem/OrganizadorVertical/Grade"]
+margin_top = 7.0
+margin_right = 101.0
+margin_bottom = 31.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Hora:"
+align = 2
+
+[node name="Hora" type="OptionButton" parent="Margem/OrganizadorVertical/Grade"]
+margin_left = 105.0
+margin_right = 633.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+script = ExtResource( 4 )
+
+[node name="EtiquetaTempo" type="Label" parent="Margem/OrganizadorVertical/Grade"]
+margin_top = 49.0
+margin_right = 101.0
+margin_bottom = 73.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Tempo:"
+align = 2
+
+[node name="Tempo" type="OptionButton" parent="Margem/OrganizadorVertical/Grade"]
+margin_left = 105.0
+margin_top = 42.0
+margin_right = 633.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+script = ExtResource( 3 )
+
+[node name="EtiquetaSemana" type="Label" parent="Margem/OrganizadorVertical/Grade"]
+margin_top = 91.0
+margin_right = 101.0
+margin_bottom = 115.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Semana:"
+align = 2
+
+[node name="Semana" type="OptionButton" parent="Margem/OrganizadorVertical/Grade"]
+margin_left = 105.0
+margin_top = 84.0
+margin_right = 633.0
+margin_bottom = 122.0
+size_flags_horizontal = 3
+
+[node name="EtiquetaDia" type="Label" parent="Margem/OrganizadorVertical/Grade"]
+margin_top = 133.0
+margin_right = 101.0
+margin_bottom = 157.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Dia da semana:"
+align = 2
+
+[node name="Dia" type="OptionButton" parent="Margem/OrganizadorVertical/Grade"]
+margin_left = 105.0
+margin_top = 126.0
+margin_right = 633.0
+margin_bottom = 164.0
+size_flags_horizontal = 3
+script = ExtResource( 5 )
+
+[node name="EtiquetaFesta" type="Label" parent="Margem/OrganizadorVertical/Grade"]
+margin_top = 462.0
+margin_right = 101.0
+margin_bottom = 486.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Festa litúrgica:"
+align = 2
+
+[node name="Festa" type="Tree" parent="Margem/OrganizadorVertical/Grade"]
+margin_left = 105.0
+margin_top = 168.0
+margin_right = 633.0
+margin_bottom = 780.0
+size_flags_vertical = 3
+hide_root = true
+script = ExtResource( 6 )
+
+[node name="EtiquetaInvitatorio" type="Label" parent="Margem/OrganizadorVertical/Grade"]
+margin_top = 785.0
+margin_right = 101.0
+margin_bottom = 809.0
+
+[node name="Invitatorio" type="CheckBox" parent="Margem/OrganizadorVertical/Grade"]
+margin_left = 105.0
+margin_top = 784.0
+margin_right = 633.0
+margin_bottom = 810.0
+text = "Incluir Invitatório"
+
+[node name="Celebrar" type="Button" parent="Margem/OrganizadorVertical"]
+margin_top = 820.0
+margin_right = 633.0
+margin_bottom = 846.0
+theme = ExtResource( 2 )
+text = "Celebrar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="item_selected" from="Margem/OrganizadorVertical/Grade/Hora" to="." method="atualizar_interface"]
+[connection signal="item_selected" from="Margem/OrganizadorVertical/Grade/Tempo" to="." method="atualizar_interface"]
+[connection signal="item_selected" from="Margem/OrganizadorVertical/Grade/Dia" to="." method="atualizar_interface"]
+[connection signal="item_selected" from="Margem/OrganizadorVertical/Grade/Festa" to="." method="atualizar_interface"]
+[connection signal="nothing_selected" from="Margem/OrganizadorVertical/Grade/Festa" to="." method="atualizar_interface"]

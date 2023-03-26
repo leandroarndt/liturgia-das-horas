@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://scripts/salterio/estrofe.gd" type="Script" id=1]
+[ext_resource path="res://assets/Salterio/Ordinario/Versiculo introdutorio R.png" type="Texture" id=2]
+[ext_resource path="res://assets/Salterio/Quaresma/Versiculo introdutorio Gloria 2.png" type="Texture" id=3]
+[ext_resource path="res://assets/Salterio/Ordinario/Versiculo introdutorio V.png" type="Texture" id=4]
+[ext_resource path="res://assets/Salterio/Ordinario/Versiculo introdutorio Gloria 1.png" type="Texture" id=5]
+
+[resource]
+script = ExtResource( 1 )
+versos = [ "res://assets/Salterio/Ordinario/Versiculo introdutorio V", "res://assets/Salterio/Ordinario/Versiculo introdutorio R", "res://assets/Salterio/Ordinario/Versiculo introdutorio Gloria 1", "Versiculo introdutorio Gloria 2" ]
+imagens = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ) ]
+tipo = 0
+nome = ""

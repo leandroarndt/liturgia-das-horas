@@ -1,0 +1,548 @@
+[gd_scene load_steps=32 format=2]
+
+[ext_resource path="res://addons/midi/MidiPlayer.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Root.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Interface.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Trecho.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/musica.gd" type="Script" id=5]
+[ext_resource path="res://scripts/Parar.gd" type="Script" id=6]
+[ext_resource path="res://scripts/partitura.gd" type="Script" id=7]
+[ext_resource path="res://assets/tema.tres" type="Theme" id=8]
+[ext_resource path="res://assets/imagens/Circle-icons-settings.svg.png" type="Texture" id=9]
+[ext_resource path="res://scripts/salterio/controlador.gd" type="Script" id=10]
+[ext_resource path="res://scripts/RepetirAntifona.gd" type="Script" id=11]
+[ext_resource path="res://scripts/Avancar.gd" type="Script" id=12]
+[ext_resource path="res://scripts/Voltar.gd" type="Script" id=13]
+[ext_resource path="res://scripts/OpcoesAntifona.gd" type="Script" id=14]
+[ext_resource path="res://scripts/Link.gd" type="Script" id=15]
+[ext_resource path="res://assets/imagens/celebracao.png" type="Texture" id=16]
+[ext_resource path="res://scripts/Configuracoes.gd" type="Script" id=17]
+[ext_resource path="res://scripts/BotaoSalvarConfiguracoes.gd" type="Script" id=18]
+[ext_resource path="res://scripts/Tempo.gd" type="Script" id=19]
+[ext_resource path="res://scripts/ConjuntoBreve.gd" type="Script" id=20]
+[ext_resource path="res://scripts/ConjuntoPausa.gd" type="Script" id=21]
+[ext_resource path="res://scripts/ConjuntoVolumeHarmonia.gd" type="Script" id=22]
+[ext_resource path="res://scripts/ConjuntoVolume.gd" type="Script" id=23]
+[ext_resource path="res://assets/subtema_verde.tres" type="Theme" id=24]
+[ext_resource path="res://scripts/Rolagem.gd" type="Script" id=26]
+
+[sub_resource type="InputEventKey" id=1]
+scancode = 16777231
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
+
+[sub_resource type="InputEventKey" id=3]
+scancode = 16777233
+
+[sub_resource type="ShortCut" id=4]
+shortcut = SubResource( 3 )
+
+[sub_resource type="DynamicFontData" id=5]
+font_path = "res://assets/fontes/SourceSans3_Semibold.otf"
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = SubResource( 5 )
+
+[node name="Root" type="Control"]
+theme = ExtResource( 8 )
+script = ExtResource( 2 )
+
+[node name="Controlador" type="Node" parent="."]
+script = ExtResource( 10 )
+
+[node name="MIDIPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 1 )
+
+[node name="Musica" type="Node" parent="."]
+script = ExtResource( 5 )
+Trecho = ExtResource( 4 )
+
+[node name="Interface" type="CanvasLayer" parent="."]
+script = ExtResource( 3 )
+
+[node name="OrganizadorVertical" type="VBoxContainer" parent="Interface"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Topo" type="HBoxContainer" parent="Interface/OrganizadorVertical"]
+margin_right = 657.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="OpcoesCanto" type="OptionButton" parent="Interface/OrganizadorVertical/Topo"]
+margin_right = 549.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+theme = ExtResource( 8 )
+text = "Liturgia das Horas: acompanhamento musical"
+clip_text = true
+
+[node name="BotaoEscolha" type="TextureButton" parent="Interface/OrganizadorVertical/Topo"]
+margin_left = 553.0
+margin_right = 603.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 16 )
+texture_hover = ExtResource( 16 )
+texture_disabled = ExtResource( 16 )
+texture_focused = ExtResource( 16 )
+expand = true
+stretch_mode = 5
+
+[node name="BotaoConfiguracoes" type="TextureButton" parent="Interface/OrganizadorVertical/Topo"]
+margin_left = 607.0
+margin_right = 657.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 4
+
+[node name="Antifona" type="HBoxContainer" parent="Interface/OrganizadorVertical"]
+margin_top = 54.0
+margin_right = 657.0
+margin_bottom = 92.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="OpcoesAntifona" type="OptionButton" parent="Interface/OrganizadorVertical/Antifona"]
+margin_right = 539.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+disabled = true
+text = "(Antífona)"
+clip_text = true
+script = ExtResource( 14 )
+
+[node name="RepetirAntifona" type="CheckButton" parent="Interface/OrganizadorVertical/Antifona"]
+margin_left = 543.0
+margin_right = 657.0
+margin_bottom = 38.0
+text = "Repetir"
+script = ExtResource( 11 )
+
+[node name="OpcoesRefrao" type="OptionButton" parent="Interface/OrganizadorVertical"]
+margin_top = 96.0
+margin_right = 657.0
+margin_bottom = 134.0
+size_flags_horizontal = 3
+text = "(Refrão)"
+clip_text = true
+
+[node name="Rolagem" type="ScrollContainer" parent="Interface/OrganizadorVertical"]
+margin_top = 138.0
+margin_right = 657.0
+margin_bottom = 790.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Partitura" type="VBoxContainer" parent="Interface/OrganizadorVertical/Rolagem"]
+margin_bottom = 652.0
+size_flags_vertical = 3
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/OrganizadorVertical"]
+margin_top = 794.0
+margin_right = 657.0
+margin_bottom = 842.0
+rect_min_size = Vector2( 0, 48 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TocarE" type="Button" parent="Interface/OrganizadorVertical/HBoxContainer"]
+margin_right = 128.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+theme = ExtResource( 24 )
+action_mode = 0
+text = "♪"
+
+[node name="Voltar" type="Button" parent="Interface/OrganizadorVertical/HBoxContainer"]
+margin_left = 132.0
+margin_right = 260.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+shortcut = SubResource( 2 )
+text = "<<"
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Parar" type="Button" parent="Interface/OrganizadorVertical/HBoxContainer"]
+margin_left = 264.0
+margin_right = 392.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+text = ">"
+script = ExtResource( 6 )
+
+[node name="Avancar" type="Button" parent="Interface/OrganizadorVertical/HBoxContainer"]
+margin_left = 396.0
+margin_right = 524.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+shortcut = SubResource( 4 )
+text = ">>"
+script = ExtResource( 12 )
+
+[node name="TocarD" type="Button" parent="Interface/OrganizadorVertical/HBoxContainer"]
+margin_left = 528.0
+margin_right = 657.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+theme = ExtResource( 24 )
+action_mode = 0
+text = "♪"
+
+[node name="ContainerLink" type="HBoxContainer" parent="Interface/OrganizadorVertical"]
+margin_top = 846.0
+margin_right = 657.0
+margin_bottom = 870.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EspacadorLinkEsquerdo" type="Label" parent="Interface/OrganizadorVertical/ContainerLink"]
+margin_right = 256.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Link" type="LinkButton" parent="Interface/OrganizadorVertical/ContainerLink"]
+margin_left = 260.0
+margin_right = 397.0
+margin_bottom = 24.0
+text = "visaocatolica.com.br"
+underline = 1
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LinkTimer" type="Timer" parent="Interface/OrganizadorVertical/ContainerLink/Link"]
+wait_time = 2.0
+autostart = true
+
+[node name="EspacadorLinkDireito" type="Label" parent="Interface/OrganizadorVertical/ContainerLink"]
+margin_left = 401.0
+margin_right = 657.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Interface"]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Interface/CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Configuracoes" type="Panel" parent="Interface"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -251.5
+margin_top = -195.0
+margin_right = 251.5
+margin_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 400, 250 )
+theme = ExtResource( 8 )
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="OrganizadorConfiguracoes" type="VBoxContainer" parent="Interface/Configuracoes"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -174.5
+margin_top = -178.0
+margin_right = 174.5
+margin_bottom = 178.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TituloConfiguracoes" type="Label" parent="Interface/Configuracoes/OrganizadorConfiguracoes"]
+margin_right = 349.0
+margin_bottom = 46.0
+custom_fonts/font = SubResource( 6 )
+text = "Preferências"
+align = 1
+
+[node name="GradeConfiguracoes" type="GridContainer" parent="Interface/Configuracoes/OrganizadorConfiguracoes"]
+margin_top = 50.0
+margin_right = 349.0
+margin_bottom = 356.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EtiquetaTempo" type="Label" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_top = 5.0
+margin_right = 172.0
+margin_bottom = 29.0
+text = "Tempo:"
+align = 2
+
+[node name="ConjuntoTempo" type="HBoxContainer" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_left = 176.0
+margin_right = 349.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+script = ExtResource( 19 )
+
+[node name="Tempo" type="HSlider" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoTempo"]
+margin_right = 123.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 40.0
+max_value = 200.0
+value = 120.0
+tick_count = 17
+ticks_on_borders = true
+
+[node name="TextoTempo" type="LineEdit" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoTempo"]
+margin_left = 127.0
+margin_right = 173.0
+margin_bottom = 34.0
+
+[node name="EtiquetaBreve" type="Label" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_top = 43.0
+margin_right = 172.0
+margin_bottom = 67.0
+text = "Valor da breve:"
+align = 2
+
+[node name="ConjuntoBreve" type="HBoxContainer" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_left = 176.0
+margin_top = 38.0
+margin_right = 349.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource( 20 )
+
+[node name="Breve" type="HSlider" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoBreve"]
+margin_right = 123.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 16.0
+value = 8.0
+tick_count = 8
+ticks_on_borders = true
+
+[node name="TextoBreve" type="LineEdit" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoBreve"]
+margin_left = 127.0
+margin_right = 173.0
+margin_bottom = 34.0
+
+[node name="EtiquetaPausaInicial" type="Label" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_top = 76.0
+margin_right = 172.0
+margin_bottom = 100.0
+size_flags_vertical = 0
+text = "Valor pausa na recitação:"
+align = 2
+
+[node name="ConjuntoPausa" type="HBoxContainer" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_left = 176.0
+margin_top = 76.0
+margin_right = 349.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource( 21 )
+
+[node name="PausaInicial" type="HSlider" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoPausa"]
+margin_right = 123.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.5
+max_value = 4.0
+step = 0.5
+value = 1.0
+tick_count = 8
+ticks_on_borders = true
+
+[node name="TextoPausa" type="LineEdit" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoPausa"]
+margin_left = 127.0
+margin_right = 173.0
+margin_bottom = 34.0
+
+[node name="EtiquetaMedirSempre" type="Label" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_top = 118.0
+margin_right = 172.0
+margin_bottom = 142.0
+text = "Sempre medir a recitação:"
+align = 2
+
+[node name="BotaoMedirSempre" type="CheckButton" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_left = 176.0
+margin_top = 114.0
+margin_right = 349.0
+margin_bottom = 146.0
+
+[node name="EtiquetaMelodia" type="Label" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_top = 157.0
+margin_right = 172.0
+margin_bottom = 181.0
+text = "Instrumento da melodia:"
+align = 2
+
+[node name="InstrumentoMelodia" type="OptionButton" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_left = 176.0
+margin_top = 150.0
+margin_right = 349.0
+margin_bottom = 188.0
+
+[node name="EtiquetaHarmonia" type="Label" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_top = 199.0
+margin_right = 172.0
+margin_bottom = 223.0
+text = "Instrumento da harmonia:"
+align = 2
+
+[node name="InstrumentoHarmonia" type="OptionButton" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_left = 176.0
+margin_top = 192.0
+margin_right = 349.0
+margin_bottom = 230.0
+
+[node name="EtiquetaVolumeHarmonia" type="Label" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_top = 239.0
+margin_right = 172.0
+margin_bottom = 263.0
+text = "Força da harmonia:"
+align = 2
+
+[node name="ConjuntoVolumeHarmonia" type="HBoxContainer" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_left = 176.0
+margin_top = 234.0
+margin_right = 349.0
+margin_bottom = 268.0
+script = ExtResource( 22 )
+
+[node name="VelocidadeHarmonia" type="HSlider" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolumeHarmonia"]
+margin_right = 123.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 127.0
+value = 40.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="TextoVelocidadeHarmonia" type="LineEdit" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolumeHarmonia"]
+margin_left = 127.0
+margin_right = 173.0
+margin_bottom = 34.0
+
+[node name="EtiquetaVolume" type="Label" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_top = 277.0
+margin_right = 172.0
+margin_bottom = 301.0
+text = "Volume geral:"
+align = 2
+
+[node name="ConjuntoVolume" type="HBoxContainer" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes"]
+margin_left = 176.0
+margin_top = 272.0
+margin_right = 349.0
+margin_bottom = 306.0
+script = ExtResource( 23 )
+
+[node name="Volume" type="HSlider" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolume"]
+margin_right = 123.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -100.0
+max_value = 0.0
+value = -10.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="TextoVolume" type="LineEdit" parent="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolume"]
+margin_left = 127.0
+margin_right = 173.0
+margin_bottom = 34.0
+
+[node name="BotaoSalvarConfiguracoes" type="Button" parent="Interface/Configuracoes/OrganizadorConfiguracoes"]
+margin_top = 360.0
+margin_right = 349.0
+margin_bottom = 386.0
+text = "Salvar preferências"
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="fim_musica" from="Musica" to="." method="avancar"]
+[connection signal="continuar" from="Interface" to="Musica" method="continuar"]
+[connection signal="parar" from="Interface" to="Musica" method="parar"]
+[connection signal="item_selected" from="Interface/OrganizadorVertical/Topo/OpcoesCanto" to="." method="_on_OpcoesCanto_item_selected"]
+[connection signal="pressed" from="Interface/OrganizadorVertical/Topo/BotaoEscolha" to="." method="abre_escolha"]
+[connection signal="pressed" from="Interface/OrganizadorVertical/Topo/BotaoConfiguracoes" to="." method="_on_BotaoConfiguracoes_pressed"]
+[connection signal="item_selected" from="Interface/OrganizadorVertical/Antifona/OpcoesAntifona" to="." method="_on_OpcoesAntifona_item_selected"]
+[connection signal="item_selected" from="Interface/OrganizadorVertical/OpcoesRefrao" to="." method="_on_OpcoesRefrao_item_selected"]
+[connection signal="gui_input" from="Interface/OrganizadorVertical/Rolagem" to="." method="_on_Rolagem_gui_input"]
+[connection signal="resized" from="Interface/OrganizadorVertical/Rolagem" to="Interface/OrganizadorVertical/Rolagem/Partitura" method="_on_Rolagem_resized"]
+[connection signal="scroll_ended" from="Interface/OrganizadorVertical/Rolagem" to="Interface/OrganizadorVertical/Rolagem" method="_on_Rolagem_scroll_ended"]
+[connection signal="scroll_started" from="Interface/OrganizadorVertical/Rolagem" to="Interface/OrganizadorVertical/Rolagem" method="_on_Rolagem_scroll_started"]
+[connection signal="pressed" from="Interface/OrganizadorVertical/HBoxContainer/TocarE" to="." method="_on_nota_button_down"]
+[connection signal="pressed" from="Interface/OrganizadorVertical/HBoxContainer/Voltar" to="." method="voltar"]
+[connection signal="pressed" from="Interface/OrganizadorVertical/HBoxContainer/Parar" to="Interface" method="_on_Parar_pressed"]
+[connection signal="pressed" from="Interface/OrganizadorVertical/HBoxContainer/Avancar" to="." method="avancar"]
+[connection signal="pressed" from="Interface/OrganizadorVertical/HBoxContainer/TocarD" to="." method="_on_nota_button_down"]
+[connection signal="value_changed" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoTempo/Tempo" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoTempo" method="_on_Tempo_value_changed"]
+[connection signal="text_entered" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoTempo/TextoTempo" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoTempo" method="_on_TextoTempo_text_changed"]
+[connection signal="value_changed" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoBreve/Breve" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoBreve" method="_on_Breve_value_changed"]
+[connection signal="text_entered" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoBreve/TextoBreve" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoBreve" method="_on_TextoBreve_text_entered"]
+[connection signal="value_changed" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoPausa/PausaInicial" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoPausa" method="_on_PausaInicial_value_changed"]
+[connection signal="text_entered" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoPausa/TextoPausa" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoPausa" method="_on_TextoPausa_text_entered"]
+[connection signal="value_changed" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolumeHarmonia/VelocidadeHarmonia" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolumeHarmonia" method="_on_VelocidadeHarmonia_value_changed"]
+[connection signal="text_entered" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolumeHarmonia/TextoVelocidadeHarmonia" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolumeHarmonia" method="_on_TextoVelocidadeHarmonia_text_entered"]
+[connection signal="value_changed" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolume/Volume" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolume" method="_on_Volume_value_changed"]
+[connection signal="text_entered" from="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolume/TextoVolume" to="Interface/Configuracoes/OrganizadorConfiguracoes/GradeConfiguracoes/ConjuntoVolume" method="_on_TextoVolume_text_entered"]
+[connection signal="configuracoes_alteradas" from="Interface/Configuracoes/OrganizadorConfiguracoes/BotaoSalvarConfiguracoes" to="." method="_on_BotaoSalvarConfiguracoes_configuracoes_alteradas"]
+[connection signal="pressed" from="Interface/Configuracoes/OrganizadorConfiguracoes/BotaoSalvarConfiguracoes" to="Interface/Configuracoes/OrganizadorConfiguracoes/BotaoSalvarConfiguracoes" method="_on_BotaoSalvarConfiguracoes_pressed"]

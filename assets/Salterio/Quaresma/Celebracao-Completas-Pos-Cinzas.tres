@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://scripts/salterio/parte.gd" type="Script" id=1]
+[ext_resource path="res://scripts/salterio/celebracao.gd" type="Script" id=2]
+[ext_resource path="res://assets/Salterio/Quaresma/versiculo introdutorio - canto.tres" type="Resource" id=3]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/hino b.tres" type="Resource" id=4]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 1 )
+cantos = [ ExtResource( 3 ) ]
+antifonas = [  ]
+tipo = 0
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 1 )
+cantos = [ ExtResource( 4 ) ]
+antifonas = [  ]
+tipo = 1
+
+[resource]
+script = ExtResource( 2 )
+hora = 7
+tipo = 2
+tempo = 5
+dia_da_semana = 0
+mes = 0
+dia = 0
+nome = "Completas sem aleluia"
+partes = [ SubResource( 1 ), SubResource( 2 ) ]

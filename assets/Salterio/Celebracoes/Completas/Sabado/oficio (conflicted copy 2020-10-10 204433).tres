@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://scripts/salterio/parte.gd" type="Script" id=1]
+[ext_resource path="res://assets/Salterio/Salmos/4/canto.tres" type="Resource" id=2]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Sabado/antifona 1.tres" type="Resource" id=3]
+[ext_resource path="res://scripts/salterio/celebracao.gd" type="Script" id=4]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 1 )
+cantos = [ ExtResource( 2 ) ]
+antifonas = [ ExtResource( 3 ) ]
+tipo = 0
+
+[resource]
+script = ExtResource( 4 )
+hora = 5
+tipo = 0
+tempo = 0
+dia_da_semana = 6
+mes = 0
+dia = 0
+nome = ""
+partes = [ SubResource( 1 ) ]

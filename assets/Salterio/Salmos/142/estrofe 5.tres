@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=9 format=2]
+
+[ext_resource path="res://scripts/salterio/estrofe.gd" type="Script" id=1]
+[ext_resource path="res://assets/Salterio/Salmos/142/20.png" type="Texture" id=2]
+[ext_resource path="res://assets/Salterio/Salmos/142/21.png" type="Texture" id=3]
+[ext_resource path="res://assets/Salterio/Salmos/142/24.png" type="Texture" id=4]
+[ext_resource path="res://assets/Salterio/Salmos/142/22.png" type="Texture" id=5]
+[ext_resource path="res://assets/Salterio/Salmos/142/23.png" type="Texture" id=6]
+[ext_resource path="res://assets/Salterio/Salmos/142/25.png" type="Texture" id=7]
+[ext_resource path="res://assets/Salterio/Salmos/142/26.png" type="Texture" id=8]
+
+[resource]
+script = ExtResource( 1 )
+versos = [ "20", "21", "22", "23", "24", "25", "26" ]
+imagens = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 8 ) ]
+tipo = 1
+nome = ""

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://scripts/salterio/parte.gd" type="Script" id=1]
+[ext_resource path="res://scripts/salterio/celebracao.gd" type="Script" id=2]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Quinta/antifona 1.tres" type="Resource" id=3]
+[ext_resource path="res://assets/Salterio/Salmos/15/salmo 15.tres" type="Resource" id=4]
+
+[sub_resource type="Resource" id=1]
+resource_name = "Salmo 15(16): O Senhor é minha herança"
+script = ExtResource( 1 )
+cantos = [ ExtResource( 4 ) ]
+antifonas = [ ExtResource( 3 ) ]
+tipo = 2
+
+[resource]
+script = ExtResource( 2 )
+hora = 7
+tipo = 1
+tempo = 0
+dia_da_semana = 4
+mes = 0
+dia = 0
+nome = "Completas na quinta-feira"
+partes = [ SubResource( 1 ) ]

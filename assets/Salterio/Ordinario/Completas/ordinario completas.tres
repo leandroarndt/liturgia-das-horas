@@ -1,0 +1,60 @@
+[gd_resource type="Resource" load_steps=18 format=2]
+
+[ext_resource path="res://scripts/salterio/celebracao.gd" type="Script" id=1]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/hino a.tres" type="Resource" id=2]
+[ext_resource path="res://scripts/salterio/parte.gd" type="Script" id=3]
+[ext_resource path="res://assets/Salterio/Ordinario/versiculo introdutorio - canto.tres" type="Resource" id=4]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/hino b.tres" type="Resource" id=5]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/cantico.tres" type="Resource" id=6]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/antifona cantico.tres" type="Resource" id=7]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/responsorio canto.tres" type="Resource" id=8]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/despedida canto.tres" type="Resource" id=9]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/o mae do redentor canto.tres" type="Resource" id=10]
+[ext_resource path="res://assets/Salterio/Ordinario/Completas/ave rainha do ceu canto.tres" type="Resource" id=11]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 3 )
+cantos = [ ExtResource( 4 ) ]
+antifonas = [  ]
+tipo = 0
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+cantos = [ ExtResource( 2 ), ExtResource( 5 ) ]
+antifonas = [  ]
+tipo = 1
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 3 )
+cantos = [ ExtResource( 8 ) ]
+antifonas = [  ]
+tipo = 4
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 3 )
+cantos = [ ExtResource( 6 ) ]
+antifonas = [ ExtResource( 7 ) ]
+tipo = 6
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 3 )
+cantos = [ ExtResource( 9 ) ]
+antifonas = [  ]
+tipo = 8
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 3 )
+cantos = [ ExtResource( 10 ), ExtResource( 11 ) ]
+antifonas = [  ]
+tipo = 9
+
+[resource]
+script = ExtResource( 1 )
+hora = 7
+tipo = 0
+tempo = 10
+dia_da_semana = 0
+mes = 0
+dia = 0
+nome = "Ordinário das Completas"
+partes = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ]

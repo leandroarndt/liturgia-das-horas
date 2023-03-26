@@ -1,0 +1,209 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Resource
+signal fim_trecho
+
+class_name TrechoRecurso
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+export(Resource) var imagem
+export(String) var musica
+export(Globais.Tipos) var tipo = Globais.Tipos.RECITADO
+
+var momento_melodia = 0
+var momento_harmonia = 0
+var posicao_melodia = -1
+var posicao_harmonia = -1
+var terminado:bool = false
+var harmonia:Array
+var melodia:Array
+var fila_eventos = []
+
+func ler(melodia:String, harmonia:String):
+	var busca = RegEx.new()
+	var encontrado:RegExMatch
+	busca.compile('(?<harmonia>(?<=%harmonia\\\\n)(.|\\\\n)*(?=\\\\n%\\\\/harmonia))(.|\\\\n)*(?<recitacao>(?<=%recitação\\\\n)(.|\\\\n)*(?=\\\\n%\\\\/recitação))')
+	var separar = RegEx.new()
+	var conteudo:String
+	var arquivo:File
+	arquivo = File.new()
+	arquivo.open(resource_path.get_base_dir()+'/'+musica+'.ly', File.READ)
+	conteudo = arquivo.get_as_text()
+	arquivo.close()
+	encontrado = busca.search(conteudo)
+	melodia = encontrado.get_string('recitacao')
+	harmonia = encontrado.get_string('harmonia')
+	separar.compile(\"((dob|dos|do|reb|res|re|mib|mis|mi|fab|fas|fa|solb|sols|sol|lab|las|la|sib|sis|si|r)(?<oitava>,,|,|''|')?(\\\\d|\\\\\\\\breve)?(:(\\\\S+))?)(~)?\")
+	var entradas = separar.search_all(harmonia)
+	var ligaduras = []
+	for e in entradas:
+		var entrada = Entrada.new()
+		entrada.processar(e.get_string(), true)
+		if entrada.duracao == 0:
+			entrada.duracao = self.harmonia[-1].duracao
+		if entrada.ligadura:
+			ligaduras.append(entrada)
+		self.harmonia.append(entrada)
+	for ligada in ligaduras:
+		self.harmonia.remove(self.harmonia.find(ligada)+1)
+	melodia = melodia.replacen('\\\\bar', '')
+	melodia = melodia.replacen('\"||\"', '')
+	melodia = melodia.replacen('\"|.\"', '')
+	melodia = melodia.replacen('\\\\break', '')
+	entradas = separar.search_all(melodia)
+	ligaduras = []
+	for e in entradas:
+		var entrada:Entrada = Entrada.new()
+		entrada.processar(e.get_string(), false)
+		if entrada.duracao == 0:
+			entrada.duracao = self.melodia[-1].duracao
+		if entrada.ligadura:
+			ligaduras.append(entrada)
+		self.melodia.append(entrada)
+	for ligada in ligaduras:
+		self.melodia.remove(self.melodia.find(ligada)+1)
+#	for e in range(entradas):
+#		if entradas[e].ligadura:
+#			entradas[e].duracao += entradas[e+1].duracao
+#			eliminar.push_front(e+1)
+#	for e in eliminar:
+#		entradas.remove(e)
+	fila_eventos = listar_eventos()
+
+func eventos_midi():
+#	var eventos = []
+	if self.tipo == Globais.Tipos.MEDIDO or Globais.medir_sempre:
+		#return self.listar_eventos()
+		return fila_eventos
+#		while not self.terminado:
+#			eventos.append(self.proximo())
+#		return eventos
+	return self.proximo()
+
+func proximo():
+	var eventos:Array = []
+	var momento:int = fila_eventos[0].time
+	while true:
+		var evento:SMF.MIDIEventChunk = fila_eventos.pop_front() # Lê e remove da fila
+		if evento.time == momento or evento.time == momento +  1: # Simultâneos ou imediatos (NoteOff+NoteOn) ou início da música
+			evento.time = evento.time - momento # Para zerar a espera pelo evento
+			eventos.append(evento)
+		else:
+			fila_eventos.push_front(evento) # Retorna à fila
+			break
+		if len(fila_eventos) == 0:
+			self.terminado = true
+			print('Fim do trecho')
+			emit_signal('fim_trecho')
+			break
+	return eventos
+
+func listar_eventos(): # Tempo medido
+	var eventos = [
+		SMF.MIDIEventChunk.new(0, 0, SMF.MIDIEventProgramChange.new(74)), # 52-Aah 74-Recorder
+		SMF.MIDIEventChunk.new(0, 1, SMF.MIDIEventProgramChange.new(1)), # 1 Bright PianoMIDIEventSystemEvent.new(SMF.MIDISystemEventType.set_tempo, Globais.tempo),
+	]
+	var conjuntos = [melodia, harmonia]
+	for conjunto in range(len(conjuntos)):
+		var momento = 1
+		for entrada in conjuntos[conjunto]:
+			for nota in entrada.notas:
+				eventos.append(SMF.MIDIEventChunk.new(momento, conjunto, SMF.MIDIEventNoteOn.new(nota, 127)))
+				eventos.append(SMF.MIDIEventChunk.new(momento+entrada.duracao-1, conjunto, SMF.MIDIEventNoteOff.new(nota)))
+			momento += entrada.duracao
+	eventos.sort_custom(self, 'event_sort')
+	return eventos
+
+class Entrada:
+	var nome_notas = {
+		'dob': 71,
+		'do':  72,
+		'dos': 73,
+		'sis': 72,
+		'si': 71,
+		'sib': 70,
+		'las': 70,
+		'la': 69,
+		'lab': 68,
+		'sols': 68,
+		'sol': 67,
+		'solb': 66,
+		'fas': 66,
+		'fa': 65,
+		'fab': 64,
+		'mis': 65,
+		'mi': 64,
+		'mib': 63,
+		'res': 63,
+		're': 62,
+		'reb': 61,
+	}
+	var nome_oitavas = {
+		\",,\": -24,
+		\",\":  -12,
+		\"'\":   12,
+		\"''\":  24,
+	}
+	var nome_modos = {
+		'': [4,7],
+		'7': [4,7,10],
+		'maj': [4,7],
+		'm': [3,7],
+		'min': [3,7],
+		'min7': [3,7,10],
+		'7maj': [4,7,11],
+		'o': [3,6,9],
+		'dim': [3,6,9],
+	}
+	
+	var notas:Array
+	var duracao:int
+	var ligadura:bool
+
+	func processar(entrada:String, harmonia:bool):
+#		print(entrada)
+		var interpretar = RegEx.new()
+		interpretar.compile(\"^(?<nota>dob|dos|do|reb|res|re|mib|mis|mi|fab|fas|fa|solb|sols|sol|lab|las|la|sib|sis|si|r)(?<oitava>,,|,|''|')?(?<duracao>(\\\\d|\\\\\\\\breve))?(:(?<modo>\\\\S+))?(?<ligadura>~)?\")
+		var partes = interpretar.search_all(entrada)
+#		if not harmonia:
+#			print(partes[0].get_string(\"nota\"))
+		if partes[0].get_string(\"nota\") != 'r':
+			self.notas = [nome_notas[partes[0].get_string(\"nota\")],]
+		else:
+			self.notas = []
+		if \"oitava\" in partes[0].get_names():
+			self.notas[0] += nome_oitavas[partes[0].get_string(\"oitava\")]
+		if \"duracao\" in partes[0].get_names():
+			if partes[0].get_string(\"duracao\") == \"\\\\breve\":
+				duracao = 2 * Globais.semibreve
+			else:
+				duracao = Globais.semibreve / int(partes[0].get_string(\"duracao\"))
+		if \"ligadura\" in partes[0].get_names():
+			ligadura = true
+		var modo = ''
+		if \"modo\" in partes[0].get_names():
+			modo = partes[0].get_string(\"modo\")
+		if harmonia and notas: # harmonia e não pausa
+			for n in nome_modos[partes[0].get_string(\"modo\")]:
+				self.notas.append(self.notas[0]+n)
+
+func event_sort(a:SMF.MIDIEventChunk, b:SMF.MIDIEventChunk):
+	return a.time < b.time
+	
+"
+
+[resource]
+script = SubResource( 1 )

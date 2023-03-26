@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://assets/Salterio/Salmos/90/canto.tres" type="Resource" id=1]
+[ext_resource path="res://assets/Salterio/Celebracoes/Completas/Domingo/antifona.tres" type="Resource" id=2]
+[ext_resource path="res://scripts/salterio/parte.gd" type="Script" id=3]
+[ext_resource path="res://scripts/salterio/celebracao.gd" type="Script" id=4]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 3 )
+cantos = [ ExtResource( 1 ) ]
+antifonas = [ ExtResource( 2 ) ]
+tipo = 2
+
+[resource]
+script = ExtResource( 4 )
+hora = 7
+tipo = 1
+tempo = 0
+dia_da_semana = 0
+mes = 0
+dia = 0
+nome = "Completas após I Vésperas de domingo"
+partes = [ SubResource( 1 ) ]
