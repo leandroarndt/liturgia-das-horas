@@ -59,7 +59,7 @@ func montar_celebracao(hora:int, tempo:int, semana:int, dia_da_semana:int, festa
 			celebracao_tempo = colecao.buscar_celebracao(Globais.Hora.COMPLETAS, tempo, semana, Globais.DiaDaSemana.DOMINGO)
 		elif tempo  == Globais.Tempo.PASCOA \
 		or tempo == Globais.Tempo.OITAVA_PASCOA:
-			pass
+			celebracao_tempo = colecao.buscar_celebracao(hora, Globais.Tempo.PASCOA, 0, dia_da_semana)
 		else:
 			celebracao_tempo = celebracao_tempo_comum
 		
