@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://scripts/salterio/salterio.gd" type="Script" id=1]
 [ext_resource path="res://assets/Salterio/Celebracoes/Páscoa/Sabado/pascoa completas sabado.tres" type="Resource" id=2]
 [ext_resource path="res://assets/Salterio/Celebracoes/Páscoa/Domingo/pascoa completas domingo.tres" type="Resource" id=3]
+[ext_resource path="res://assets/Salterio/Celebracoes/Páscoa/Segunda/pascoa completas segunda.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
@@ -10,4 +11,4 @@ tempo = 9
 tipo = 2
 semana = 0
 nome = "Páscoa - completas"
-celebracoes = [ ExtResource( 2 ), ExtResource( 3 ) ]
+celebracoes = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
