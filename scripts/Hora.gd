@@ -17,10 +17,6 @@ func _ready():
 	add_item('Média (Sexta)', Globais.Hora.MEDIA)
 	add_item('Vésperas', Globais.Hora.VESPERAS)
 	add_item('Completas', Globais.Hora.COMPLETAS)
-	
-	connect("item_selected", self, '_on_Hora_selected')
-	get_parent().find_node('Dia').connect("item_selected", self, 'restringir_horas')
-	get_parent().find_node('Festa').connect("item_selected", self, 'restringir_horas')
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
